@@ -43,10 +43,10 @@ html, body {
 }
 .date-unselected {
 }
-.date-selected:hover {
+.date-input.date-selected:hover, .date-select.date-selected:hover {
     background: var(--hover-selected);
 }
-.date-unselected:hover {
+.date-input.date-unselected:hover, .date-select.date-unselected:hover {
     background: var(--hover-unselected);
 }
 

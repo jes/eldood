@@ -11,14 +11,12 @@
 </div>
 
 <table class="date-table poll-display">
+<form method="post" action="/respond">
 <tr>
 <th class="name-input">
-<form method="post" action="/respond">
 <input type="text" name="name" placeholder="Your name" autofocus>
 <input type="hidden" name="token" value="<%= $poll->{token} %>">
 <input type="hidden" name="dates" value="">
-<button type="submit" disabled>Submit</button>
-</form>
 </th>
 
 
@@ -30,6 +28,11 @@
 %   }
 % }
 
+<th>
+<button id="respond-button" class="btn-big" type="submit" disabled>Submit</button>
+</th>
+</form>
+
 </tr>
 % my %datecount;
 % for my $r ($poll->responses) {
@@ -37,11 +40,6 @@
     <tr>
 
     <td><%= $r->{name} %>
-    <form style="display:inline" method="post" action="/scrub">
-    <input type="hidden" name="token" value="<%= $poll->{token} %>">
-    <input type="hidden" name="respo" value="<%= $r->{respo} %>">
-    <button type="submit">x</button>
-    </form>
     </td>
 
 
@@ -57,6 +55,17 @@
             <td class="date-unselected"></td>
 %           }
 %       }
+
+<td>
+    <form style="display:inline" method="post" action="/scrub">
+    <input type="hidden" name="token" value="<%= $poll->{token} %>">
+    <input type="hidden" name="respo" value="<%= $r->{respo} %>">
+% my $safename = $r->{name};
+% $safename =~ s/[^a-zA-Z0-9-_ ]//g;
+    <button type="submit" onclick="return confirm('Really delete "<%= $safename %>"?')">delete</button>
+    </form>
+
+</td>
 
     </tr>
 % }
@@ -76,6 +85,6 @@
 
 <script>
 window.onload = function() {
-    makeDateSelectors(document.querySelector('input[name="dates"]'), document.querySelector('button[type="submit"]'));
+    makeDateSelectors(document.querySelector('input[name="dates"]'), document.querySelector('#respond-button'));
 };
 </script>
