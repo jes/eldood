@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<head>
+<title>Not Doodle</title>
+</head>
+<body>
+<h1>Not Doodle</h1>
+%= content
+</body>
+</html>

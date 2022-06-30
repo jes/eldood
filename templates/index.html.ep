@@ -1,0 +1,8 @@
+% layout 'default';
+
+<form method="post" action="/new">
+    Event name: <input type="text" name="name"><br>
+    Description: <textarea name="descr"></textarea><br>
+    Dates: <input type="text" name="dates"><br>
+    <button type="submit">Create poll</button>
+</form>

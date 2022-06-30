@@ -17,8 +17,9 @@ get '/' => sub {
 
 get '/:token' => sub {
     my ($c) = @_;
-    my $poll = NotDoodle->get(scalar $c->{token});
+    my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
+    $c->stash(poll => $poll);
     return $c->render('poll');
 };
 
@@ -28,9 +29,9 @@ get '/:token' => sub {
 post '/new' => sub {
     my ($c) = @_;
     my $poll = NotDoodle->new(
-        name => scalar $c->{name},
-        descr => scalar $c->{descr},
-        dates => scalar $c->{dates},
+        name => scalar $c->param('name'),
+        descr => scalar $c->param('descr'),
+        dates => scalar $c->param('dates'),
     );
     return $c->redirect_to('/' . $poll->{token});
 };
@@ -40,11 +41,11 @@ post '/new' => sub {
 # dates: "20220701,20220819"
 post '/respond' => sub {
     my ($c) = @_;
-    my $poll = NotDoodle->get(scalar $c->{token});
+    my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
-    $poll->submit(
-        name => scalar $c->{name},
-        dates => scalar $c->{dates},
+    $poll->respond(
+        name => scalar $c->param('name'),
+        dates => scalar $c->param('dates'),
     );
     return $c->redirect_to('/' . $poll->{token});
 };
@@ -53,9 +54,9 @@ post '/respond' => sub {
 # respo: "b653ead819"
 post '/scrub' => sub {
     my ($c) = @_;
-    my $poll = NotDoodle->get(scalar $c->{token});
+    my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
-    $poll->scrub(scalar $c->{row});
+    $poll->scrub(scalar $c->param('respo'));
     return $c->redirect_to('/' . $poll->{token});
 };
 
@@ -65,12 +66,12 @@ post '/scrub' => sub {
 # dates: "20220701,20220819"
 post '/update' => sub {
     my ($c) = @_;
-    my $poll = NotDoodle->get(scalar $c->{token});
+    my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->update(
-        respo => scalar $c->{respo},
-        name => scalar $c->{name},
-        dates => scalar $c->{dates},
+        respo => scalar $c->param('respo'),
+        name => scalar $c->param('name'),
+        dates => scalar $c->param('dates'),
     );
     return $c->redirect_to('/' . $poll->{token});
 };
