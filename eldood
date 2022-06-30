@@ -12,7 +12,7 @@ use lib "$FindBin::Bin/lib/";
 
 use Eldood;
 
-my $ROOT = "https://eldood.com/";
+my $ROOT = "https://eldood.uk/";
 
 helper encode_json => sub {
     my ($c,$o) = @_;
