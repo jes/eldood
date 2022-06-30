@@ -1,0 +1,78 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use Mojolicious::Lite;
+
+use lib "$FindBin::Bin/lib/";
+
+use NotDoodle;
+
+get '/' => sub {
+    my ($c) = @_;
+    return $c->render('index');
+};
+
+get '/:token' => sub {
+    my ($c) = @_;
+    my $poll = NotDoodle->get(scalar $c->{token});
+    return $c->redirect_to('/') if !$poll;
+    return $c->render('poll');
+};
+
+# name: "My NotDoodle poll"
+# descr: "This is an example poll"
+# dates: "20220630,20220701,20220704,20220819"
+post '/new' => sub {
+    my ($c) = @_;
+    my $poll = NotDoodle->new(
+        name => scalar $c->{name},
+        descr => scalar $c->{descr},
+        dates => scalar $c->{dates},
+    );
+    return $c->redirect_to('/' . $poll->{token});
+};
+
+# token: "a6bef9c5f6"
+# name: "jes"
+# dates: "20220701,20220819"
+post '/respond' => sub {
+    my ($c) = @_;
+    my $poll = NotDoodle->get(scalar $c->{token});
+    return $c->redirect_to('/') if !$poll;
+    $poll->submit(
+        name => scalar $c->{name},
+        dates => scalar $c->{dates},
+    );
+    return $c->redirect_to('/' . $poll->{token});
+};
+
+# token: "a6bef9c5f6"
+# respo: "b653ead819"
+post '/scrub' => sub {
+    my ($c) = @_;
+    my $poll = NotDoodle->get(scalar $c->{token});
+    return $c->redirect_to('/') if !$poll;
+    $poll->scrub(scalar $c->{row});
+    return $c->redirect_to('/' . $poll->{token});
+};
+
+# token: "a6bef9c5f6"
+# respo: "b653ead819"
+# name: "jes"
+# dates: "20220701,20220819"
+post '/update' => sub {
+    my ($c) = @_;
+    my $poll = NotDoodle->get(scalar $c->{token});
+    return $c->redirect_to('/') if !$poll;
+    $poll->update(
+        respo => scalar $c->{respo},
+        name => scalar $c->{name},
+        dates => scalar $c->{dates},
+    );
+    return $c->redirect_to('/' . $poll->{token});
+};
+
+app->start;
