@@ -206,7 +206,7 @@ function makeDatesInputs() {
     document.querySelectorAll('.dates-input').forEach(div => makeDatesInput(div));
 }
 
-function makeDateSelectors(inputField) {
+function makeDateSelectors(inputField, submitButton) {
     let dateSelected = {};
     document.querySelectorAll('.date-select').forEach(td => {
         td.onclick = function() {
@@ -225,6 +225,12 @@ function makeDateSelectors(inputField) {
                 if (dateSelected[date]) dates.push(date);
             }
             inputField.value = dates.sort().join(',');
+
+            if (dates.length > 0) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
         };
     });
 }

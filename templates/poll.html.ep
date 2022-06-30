@@ -17,7 +17,7 @@
 <input type="text" name="name" placeholder="Your name" autofocus>
 <input type="hidden" name="token" value="<%= $poll->{token} %>">
 <input type="hidden" name="dates" value="">
-<button type="Submit">Submit</button>
+<button type="submit" disabled>Submit</button>
 </form>
 </th>
 
@@ -76,6 +76,6 @@
 
 <script>
 window.onload = function() {
-    makeDateSelectors(document.querySelector('input[name="dates"]'));
+    makeDateSelectors(document.querySelector('input[name="dates"]'), document.querySelector('button[type="submit"]'));
 };
 </script>

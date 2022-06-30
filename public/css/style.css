@@ -27,12 +27,14 @@ html, body {
 }
 
 .date-input {
+    user-select: none;
     cursor: default;
     padding: 10px;
     text-align: center;
     font-size: 1.8rem;
 }
 .date-select {
+    user-select: none;
     cursor: default;
     text-align: center;
 }
@@ -81,6 +83,19 @@ button {
 }
 button:hover {
     background-color: var(--hover-unselected);
+}
+button:active {
+    box-shadow: 4px 4px var(--fg);
+}
+button:disabled {
+    color: var(--fgsubtle);
+    box-shadow: 2px 2px var(--fgsubtle);
+}
+button:disabled:hover {
+    background-color: var(--bg);
+}
+button:active {
+    box-shadow: 2px 2px var(--fgsubtle);
 }
 .btn-big {
     font-size: 1.5rem;
