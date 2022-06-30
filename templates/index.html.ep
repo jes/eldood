@@ -5,5 +5,5 @@
     Description: <textarea name="descr"></textarea><br>
     Dates:
     <div class="dates-input">JavaScript needed.</div>
-    <button type="submit">Create poll</button>
+    <button class="btn" type="submit">Create poll</button>
 </form>

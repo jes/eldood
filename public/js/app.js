@@ -12,10 +12,10 @@ function fmtDate(year, month, day) {
 
 // https://stackoverflow.com/a/1184359
 function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
+    return new Date(year, month+1, 0).getDate();
 }
 
-function dayOfWeek(month, year, day) {
+function dayOfWeek(year, month, day) {
     let d = new Date();
     d.setDate(day);
     d.setMonth(month);
@@ -80,6 +80,7 @@ function makeDatesInput(container) {
 
         function navDiv() {
             let navDiv = document.createElement('div');
+            navDiv.classList.add('month-nav');
 
             let minusYear = document.createElement('button');
             let minusMonth = document.createElement('button');
@@ -96,6 +97,7 @@ function makeDatesInput(container) {
             plusYear.onclick = function() { datesInput.stepMonths(+12) };
 
             let monthName = document.createElement('span');
+            monthName.classList.add('month-name');
             let d = new Date();
             d.setDate(1);
             d.setMonth(datesInput.month);
@@ -121,10 +123,15 @@ function makeDatesInput(container) {
         table.classList.add('date-table');
         table.appendChild(htmlToElem("<tr><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th></tr>"));
         let row = document.createElement('tr');
-        let weekday = dayOfWeek(datesInput.month, datesInput.year, 1);
-        let td = document.createElement('td');
-        td.colSpan = weekday-1;
-        row.appendChild(td);
+        console.log("weekday = dayOfWeek(" + datesInput.year + "," + datesInput.month + "," + 1);
+        let weekday = dayOfWeek(datesInput.year, datesInput.month, 1);
+        console.log(" = " + weekday);
+        if (weekday == 0) weekday = 7;
+        if (weekday > 1) {
+            let td = document.createElement('td');
+            td.colSpan = weekday-1;
+            row.appendChild(td);
+        }
         for (let day = 1; day <= daysInMonth(datesInput.month, datesInput.year); day++) {
             let td = document.createElement('td');
             td.onclick = function() { datesInput.toggleDay(day) };
@@ -156,6 +163,7 @@ function makeDatesInput(container) {
     datesInput.inputField.name = "dates";
     datesInput.inputField.value = "";
 
+    container.innerHTML = '';
     container.appendChild(datesInput.inputField);
     datesInput.createInput();
 }
