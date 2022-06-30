@@ -2,18 +2,46 @@
 
 <h2><%= $poll->{name} %></h2>
 <p><%= $poll->{descr} %></p>
-<p>dates: <%= $poll->{dates} %></p>
+
+<div class="dates-selection"></div>
 
 <form method="post" action="/respond">
     <input type="hidden" name="token" value="<%= $poll->{token} %>">
-    Your name: <input type="text" name="name"><br>
-    Your dates: <input type="text" name="dates"><br>
-    <button type="submit">Respond</button>
+    Your name:<br><input class="form-input" type="text" name="name"><br>
+    Your dates:<br> <input class="form-input" type="text" name="dates"><br>
+    <button class="btn-big form-input" type="submit">Respond</button>
 </form>
 
-<table border>
-<tr><th>name</th><th>dates</th><th>delete</th></tr>
+<table class="date-table">
+<tr><th></th>
+
+% my @dates = sort split /,/, $poll->{dates};
+% for my $d (@dates) {
+%   if ($d =~ /^(\d\d\d\d)(\d\d)(\d\d)$/) {
+%       my ($year,$month,$day) = ($1,$2,$3);
+        <th><%= weekday($year,$month,$day) %><br><%= $day %><br><%= month($month) %><br><%= $year %></th>
+%   }
+% }
+
+</tr>
 % for my $r ($poll->responses) {
-<tr><td><%= $r->{name} %></td><td><%= $r->{dates} %></td><td><form method="post" action="/scrub"><input type="hidden" name="token" value="<%= $poll->{token} %>"><input type="hidden" name="respo" value="<%= $r->{respo} %>"><button type="submit">scrub</button></form></td></tr>
+%   my %hasdate = map { $_ => 1 } split /,/, $r->{dates};
+    <tr>
+
+    <td><%= $r->{name} %>
+    <form method="post" action="/scrub">
+    <input type="hidden" name="token" value="<%= $poll->{token} %>">
+    <input type="hidden" name="respo" value="<%= $r->{respo} %>">
+    <button type="submit">x</button>
+    </form>
+    </td>
+
+
+
+%       for my $d (@dates) {
+            <td><%= $hasdate{$d} ? '/' : '' %></td>
+%       }
+
+    </tr>
 % }
 </table>

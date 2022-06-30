@@ -3,12 +3,35 @@
 use strict;
 use warnings;
 
+use DateTime;
 use FindBin;
+use JSON::XS qw(encode_json);
 use Mojolicious::Lite;
 
 use lib "$FindBin::Bin/lib/";
 
 use NotDoodle;
+
+helper encode_json => sub {
+    my ($c,$o) = @_;
+    return encode_json($o);
+};
+
+helper month => sub {
+    my ($c,$m) = @_;
+    my @names = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
+    return $names[$m-1];
+};
+
+helper weekday => sub {
+    my ($c,$y,$m,$d) = @_;
+    my $dt = DateTime->new(
+        year => $y,
+        month => $m,
+        day => $d,
+    );
+    return $dt->strftime("%a");
+};
 
 get '/' => sub {
     my ($c) = @_;

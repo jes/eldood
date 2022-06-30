@@ -173,4 +173,7 @@ function makeDatesInputs() {
     document.querySelectorAll('.dates-input').forEach(div => makeDatesInput(div));
 }
 
+function makeDatesSelection(container, dates) {
+}
+
 makeDatesInputs();
