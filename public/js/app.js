@@ -10,6 +10,39 @@ function fmtDate(year, month, day) {
     return zeropad(year,4) + zeropad(month+1,2) + zeropad(day,2);
 }
 
+// https://stackoverflow.com/a/33928558
+// Copies a string to the clipboard. Must be called from within an
+// event handler such as click. May return false if it failed, but
+// this is not always possible. Browser support for Chrome 43+,
+// Firefox 42+, Safari 10+, Edge and Internet Explorer 10+.
+// Internet Explorer: The clipboard feature may be disabled by
+// an administrator. By default a prompt is shown the first
+// time the clipboard is used (per session).
+function copyToClipboard(text) {
+    if (window.clipboardData && window.clipboardData.setData) {
+        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+        return window.clipboardData.setData("Text", text);
+
+    }
+    else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+        var textarea = document.createElement("textarea");
+        textarea.textContent = text;
+        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+        }
+        catch (ex) {
+            console.warn("Copy to clipboard failed.", ex);
+            return prompt("Copy to clipboard: Ctrl+C, Enter", text);
+        }
+        finally {
+            document.body.removeChild(textarea);
+        }
+    }
+}
+
 // https://stackoverflow.com/a/1184359
 function daysInMonth(month, year) {
     return new Date(year, month+1, 0).getDate();
@@ -175,18 +208,16 @@ function makeDatesInputs() {
 
 function makeDateSelectors(inputField) {
     let dateSelected = {};
-    document.querySelectorAll('.date-input').forEach(td => {
+    document.querySelectorAll('.date-select').forEach(td => {
         td.onclick = function() {
             if (dateSelected[td.dataset.date]) {
                 delete dateSelected[td.dataset.date];
                 td.classList.add('date-unselected');
                 td.classList.remove('date-selected');
-                td.innerHTML = "";
             } else {
                 dateSelected[td.dataset.date] = true;
                 td.classList.add('date-selected');
                 td.classList.remove('date-unselected');
-                td.innerHTML = "<span class=\"ticked-date\">&#10003;</span>";
             }
 
             let dates = [];

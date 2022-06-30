@@ -1,20 +1,32 @@
 % layout 'default';
 
+<div style="max-width: 100vw">
 <h2><%= $poll->{name} %></h2>
 <p><%= $poll->{descr} %></p>
 
+<p>Share this URL: <span style=" white-space:nowrap" class="withborder"><%= poll_url($poll) %></span> <button onclick="copyToClipboard('<%= poll_url($poll) %>')">copy</button></p>
+
 <p>Enter your name and select the dates you can make.</p>
 
-<p>Share this URL: <span class="withborder"><%= poll_url($poll) %></span></p>
+</div>
 
 <table class="date-table poll-display">
-<tr><th></th>
+<tr>
+<th class="name-input">
+<form method="post" action="/respond">
+<input type="text" name="name" placeholder="Your name" autofocus>
+<input type="hidden" name="token" value="<%= $poll->{token} %>">
+<input type="hidden" name="dates" value="">
+<button type="Submit">Submit</button>
+</form>
+</th>
+
 
 % my @dates = sort split /,/, $poll->{dates};
 % for my $d (@dates) {
 %   if ($d =~ /^(\d\d\d\d)(\d\d)(\d\d)$/) {
 %       my ($year,$month,$day) = ($1,$2,$3);
-        <th><span class="subtle"><%= weekday($year,$month,$day) %></span><br><%= $day %><br><%= month($month) %><br><span class="subtle"><%= $year %></span></th>
+        <th class="date-select date-unselected" data-date="<%= "$year$month$day" %>"><span class="subtle"><%= weekday($year,$month,$day) %></span><br><%= $day %><br><%= month($month) %><br><span class="subtle"><%= $year %></span></th>
 %   }
 % }
 
@@ -57,23 +69,6 @@
     </td>
 % }
 </td>
-</tr>
-
-<tr>
-<td class="name-input">
-<form method="post" action="/respond">
-<input type="text" name="name" placeholder="Your name" autofocus>
-<input type="hidden" name="token" value="<%= $poll->{token} %>">
-<input type="hidden" name="dates" value="">
-<button type="Submit">Submit</button>
-</form>
-</td>
-
-
-% for my $d (@dates) {
-    <td class="date-input nopadding date-unselected" data-date="<%= $d %>">
-    </td>
-% }
 </tr>
 
 </table>

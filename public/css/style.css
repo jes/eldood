@@ -32,8 +32,9 @@ html, body {
     text-align: center;
     font-size: 1.8rem;
 }
-.nopadding {
-    padding: 0 !important;
+.date-select {
+    cursor: default;
+    text-align: center;
 }
 .date-selected {
     background: var(--selected);;
@@ -122,7 +123,6 @@ a:hover, a:focus, a:active {
 
 .container {
     width: 100%;
-    overflow-x: scroll;
     flex-direction: row;
     display: flex;
 }
