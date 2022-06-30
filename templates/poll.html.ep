@@ -3,33 +3,27 @@
 <h2><%= $poll->{name} %></h2>
 <p><%= $poll->{descr} %></p>
 
-<div class="dates-selection"></div>
+<p>Enter your name and select the dates you can make.</p>
 
-<form method="post" action="/respond">
-    <input type="hidden" name="token" value="<%= $poll->{token} %>">
-    Your name:<br><input class="form-input" type="text" name="name"><br>
-    Your dates:<br> <input class="form-input" type="text" name="dates"><br>
-    <button class="btn-big form-input" type="submit">Respond</button>
-</form>
-
-<table class="date-table">
+<table class="date-table poll-display">
 <tr><th></th>
 
 % my @dates = sort split /,/, $poll->{dates};
 % for my $d (@dates) {
 %   if ($d =~ /^(\d\d\d\d)(\d\d)(\d\d)$/) {
 %       my ($year,$month,$day) = ($1,$2,$3);
-        <th><%= weekday($year,$month,$day) %><br><%= $day %><br><%= month($month) %><br><%= $year %></th>
+        <th><span class="subtle"><%= weekday($year,$month,$day) %></span><br><%= $day %><br><%= month($month) %><br><span class="subtle"><%= $year %></span></th>
 %   }
 % }
 
 </tr>
+% my %datecount;
 % for my $r ($poll->responses) {
 %   my %hasdate = map { $_ => 1 } split /,/, $r->{dates};
     <tr>
 
     <td><%= $r->{name} %>
-    <form method="post" action="/scrub">
+    <form style="display:inline" method="post" action="/scrub">
     <input type="hidden" name="token" value="<%= $poll->{token} %>">
     <input type="hidden" name="respo" value="<%= $r->{respo} %>">
     <button type="submit">x</button>
@@ -39,9 +33,52 @@
 
 
 %       for my $d (@dates) {
-            <td><%= $hasdate{$d} ? '/' : '' %></td>
+%           if ($hasdate{$d}) {
+%               $datecount{$d}++;
+
+            <td class="date-selected">
+                <span class="ticked-date">&#10003;</span>
+            </td>
+%           } else {
+            <td class="date-unselected"></td>
+%           }
 %       }
 
     </tr>
 % }
+
+<tr>
+<td style="height:initial"></td>
+% for my $d (@dates) {
+    <td style="height:initial">
+    <%= $datecount{$d}||'' %>
+    </td>
+% }
+</td>
+</tr>
+
+<tr>
+<td class="name-input">
+<form method="post" action="/respond">
+<input type="text" name="name" placeholder="Your name" autofocus>
+<input type="hidden" name="token" value="<%= $poll->{token} %>">
+<input type="hidden" name="dates" value="">
+<button type="Submit">Submit</button>
+</form>
+</td>
+
+
+% for my $d (@dates) {
+    <td class="date-input nopadding date-unselected" data-date="<%= $d %>">
+    </td>
+% }
+</tr>
+
 </table>
+<br>
+
+<script>
+window.onload = function() {
+    makeDateSelectors(document.querySelector('input[name="dates"]'));
+};
+</script>

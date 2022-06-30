@@ -9,7 +9,7 @@
 %= content
 
 <hr>
-<small>Not Doodle is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small>
+<small class="subtle">Not Doodle is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small>
 
 <script src="/js/app.js"></script>
 </body>

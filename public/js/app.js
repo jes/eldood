@@ -173,7 +173,29 @@ function makeDatesInputs() {
     document.querySelectorAll('.dates-input').forEach(div => makeDatesInput(div));
 }
 
-function makeDatesSelection(container, dates) {
+function makeDateSelectors(inputField) {
+    let dateSelected = {};
+    document.querySelectorAll('.date-input').forEach(td => {
+        td.onclick = function() {
+            if (dateSelected[td.dataset.date]) {
+                delete dateSelected[td.dataset.date];
+                td.classList.add('date-unselected');
+                td.classList.remove('date-selected');
+                td.innerHTML = "";
+            } else {
+                dateSelected[td.dataset.date] = true;
+                td.classList.add('date-selected');
+                td.classList.remove('date-unselected');
+                td.innerHTML = "<span class=\"ticked-date\">&#10003;</span>";
+            }
+
+            let dates = [];
+            for (let date in dateSelected) {
+                if (dateSelected[date]) dates.push(date);
+            }
+            inputField.value = dates.sort().join(',');
+        };
+    });
 }
 
 makeDatesInputs();
