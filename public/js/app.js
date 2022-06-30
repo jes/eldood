@@ -119,6 +119,7 @@ function makeDatesInput(container) {
 
         // create table with td for each day
         datesInput.daysDiv = document.createElement('div');
+        datesInput.daysDiv.classList.add('days-div');
         let table = document.createElement('table');
         table.classList.add('date-table');
         table.appendChild(htmlToElem("<tr><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th></tr>"));

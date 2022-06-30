@@ -1,0 +1,84 @@
+:root {
+    --bg: white;
+    --fg: black;
+    --selected: lightgreen;
+    --hover-selected: limegreen;
+    --hover-unselected: lightgrey;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: black;
+        --fg: white;
+        --selected: limegreen;
+        --hover-selected: lightgreen;
+        --hover-unselected: grey;
+    }
+}
+
+html, body {
+    max-width: 900px;
+    margin: auto;
+    font-family: monospace;
+    font-size: 1.2em;
+    color: var(--fg);
+    background-color: var(--bg);
+}
+
+.date-input {
+    cursor: default;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+.date-selected {
+    background: var(--selected);;
+}
+.date-unselected {
+}
+.date-selected:hover {
+    background: var(--hover-selected);
+}
+.date-unselected:hover {
+    background: var(--hover-unselected);
+}
+
+.date-table, .date-table td, .date-table th, .date-table tr {
+    border-collapse: collapse;
+    border: solid 1px var(--fg);
+}
+
+.month-nav button {
+    margin: 10px;
+    font-size: 1.5rem;
+}
+
+.dates-input {
+    text-align: center;
+}
+.dates-input table {
+    margin: auto;
+}
+
+input, button, textarea {
+    font-size: 1.2rem;
+    color: var(--fg);
+    background-color: var(--bg);
+    border: solid 1px var(--fg);
+}
+button {
+    box-shadow: 2px 2px var(--fg);
+}
+button:hover {
+    background-color: var(--hover-unselected);
+}
+
+.month-name {
+    font-size: 1.4rem;
+    min-width: 180px;
+    display: inline-block;
+}
+
+.days-div {
+    min-height:  340px;
+}
