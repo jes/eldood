@@ -5,11 +5,19 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
+<div class="container">
+<div class="leftpad"></div>
+
+<div class="maincontent">
 <h1>Not Doodle</h1>
 %= content
 
 <hr>
 <small class="subtle">Not Doodle is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small>
+</div>
+
+<div class="rightpad"></div>
+</div>
 
 <script src="/js/app.js"></script>
 </body>

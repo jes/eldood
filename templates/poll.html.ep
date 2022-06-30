@@ -5,6 +5,8 @@
 
 <p>Enter your name and select the dates you can make.</p>
 
+<p>Share this URL: <span class="withborder"><%= poll_url($poll) %></span></p>
+
 <table class="date-table poll-display">
 <tr><th></th>
 

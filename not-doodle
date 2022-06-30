@@ -12,6 +12,8 @@ use lib "$FindBin::Bin/lib/";
 
 use NotDoodle;
 
+my $ROOT = "https://notdoodle.com/";
+
 helper encode_json => sub {
     my ($c,$o) = @_;
     return encode_json($o);
@@ -31,6 +33,11 @@ helper weekday => sub {
         day => $d,
     );
     return $dt->strftime("%a");
+};
+
+helper poll_url => sub {
+    my ($c,$poll) = @_;
+    return $ROOT . $poll->{token};
 };
 
 get '/' => sub {

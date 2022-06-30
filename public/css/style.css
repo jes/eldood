@@ -19,8 +19,7 @@
 }
 
 html, body {
-    max-width: 900px;
-    margin: auto;
+    width: 100%;
     font-family: monospace;
     font-size: 1.2em;
     color: var(--fg);
@@ -119,4 +118,23 @@ a:hover, a:focus, a:active {
 
 .subtle {
     color: var(--fgsubtle);
+}
+
+.container {
+    width: 100%;
+    overflow-x: scroll;
+    flex-direction: row;
+    display: flex;
+}
+
+.leftpad, .rightpad {
+    flex-grow: 1;
+}
+.main-content {
+    flex-grow: 0;
+}
+
+.withborder {
+    border: solid 1px var(--fgsubtle);
+    padding: 4px;
 }
