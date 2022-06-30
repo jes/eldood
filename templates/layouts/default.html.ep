@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title><%= stash('title') ? (stash('title')." - Not Doodle") : "Not Doodle" %></title>
+<title><%= stash('title') ? (stash('title')." - Eldood") : "Eldood" %></title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
@@ -9,11 +9,11 @@
 <div class="leftpad"></div>
 
 <div class="maincontent">
-<h1>Not Doodle</h1>
+<h1>Eldood</h1>
 %= content
 
 <hr>
-<small class="subtle">Not Doodle is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small>
+<small class="subtle">Eldood is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small>
 </div>
 
 <div class="rightpad"></div>

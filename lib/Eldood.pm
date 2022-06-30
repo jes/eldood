@@ -1,4 +1,4 @@
-package NotDoodle;
+package Eldood;
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ my $TOKEN_LENGTH = 5; # bytes
 my $DBH;
 sub dbh {
     if (!$DBH || !$DBH->ping) {
-        $DBH = DBI->connect("dbi:SQLite:dbname=notdoodle.db", "", "", {
+        $DBH = DBI->connect("dbi:SQLite:dbname=eldood.db", "", "", {
             RaiseError => 1,
             AutoCommit => 1,
         });
@@ -36,7 +36,7 @@ sub get {
     return bless $row, $pkg;
 }
 
-# name: "My NotDoodle poll"
+# name: "My Eldood poll"
 # descr: "This is an example poll"
 # dates: "20220630,20220701,20220704,20220819"
 sub new {

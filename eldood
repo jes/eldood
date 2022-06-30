@@ -10,9 +10,9 @@ use Mojolicious::Lite;
 
 use lib "$FindBin::Bin/lib/";
 
-use NotDoodle;
+use Eldood;
 
-my $ROOT = "https://notdoodle.com/";
+my $ROOT = "https://eldood.com/";
 
 helper encode_json => sub {
     my ($c,$o) = @_;
@@ -52,19 +52,19 @@ get '/' => sub {
 
 get '/:token' => sub {
     my ($c) = @_;
-    my $poll = NotDoodle->get(scalar $c->param('token'));
+    my $poll = Eldood->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $c->stash(poll => $poll);
     return $c->render('poll');
 };
 
-# name: "My NotDoodle poll"
+# name: "My Eldood poll"
 # descr: "This is an example poll"
 # dates: "20220630,20220701,20220704,20220819"
 post '/new' => sub {
     my ($c) = @_;
     return $c->redirect_to('/') if !$c->is_valid_csrftoken;
-    my $poll = NotDoodle->new(
+    my $poll = Eldood->new(
         name => scalar $c->param('name'),
         descr => scalar $c->param('descr'),
         dates => scalar $c->param('dates'),
@@ -78,7 +78,7 @@ post '/new' => sub {
 post '/respond' => sub {
     my ($c) = @_;
     return $c->redirect_to('/') if !$c->is_valid_csrftoken;
-    my $poll = NotDoodle->get(scalar $c->param('token'));
+    my $poll = Eldood->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->respond(
         name => scalar $c->param('name'),
@@ -92,7 +92,7 @@ post '/respond' => sub {
 post '/scrub' => sub {
     my ($c) = @_;
     return $c->redirect_to('/') if !$c->is_valid_csrftoken;
-    my $poll = NotDoodle->get(scalar $c->param('token'));
+    my $poll = Eldood->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->scrub(scalar $c->param('respo'));
     return $c->redirect_to('/' . $poll->{token});
@@ -105,7 +105,7 @@ post '/scrub' => sub {
 post '/update' => sub {
     my ($c) = @_;
     return $c->redirect_to('/') if !$c->is_valid_csrftoken;
-    my $poll = NotDoodle->get(scalar $c->param('token'));
+    my $poll = Eldood->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->update(
         respo => scalar $c->param('respo'),
