@@ -5,12 +5,14 @@ use warnings;
 
 use DBI;
 
+use Eldood::Config;
+
 my $TOKEN_LENGTH = 5; # bytes
 
 my $DBH;
 sub dbh {
     if (!$DBH || !$DBH->ping) {
-        $DBH = DBI->connect("dbi:SQLite:dbname=eldood.db", "", "", {
+        $DBH = DBI->connect(Eldood::Config->get('database'), "", "", {
             RaiseError => 1,
             AutoCommit => 1,
         });

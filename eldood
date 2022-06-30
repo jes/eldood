@@ -11,6 +11,7 @@ use Mojolicious::Lite;
 use lib "$FindBin::Bin/lib/";
 
 use Eldood;
+use Eldood::Config;
 
 my $ROOT = "https://eldood.uk/";
 
@@ -114,5 +115,10 @@ post '/update' => sub {
     );
     return $c->redirect_to('/' . $poll->{token});
 };
+
+app->secrets([Eldood::Config->get('app_secret')]);
+
+my $port = Eldood::Config->get('port');
+app->config(hypnotoad => {listen => ["http://*:$port"], workers => 2});
 
 app->start;

@@ -1,0 +1,4 @@
+app_secret: THIS SECRET NEEDS TO BE CHANGED
+database: dbi:SQLite:dbname=eldood.db
+port: 9000
+root: https://eldood.uk/
