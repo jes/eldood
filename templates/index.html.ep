@@ -1,9 +1,9 @@
 % layout 'default';
 
 <form method="post" action="/new">
-    Event name: <input type="text" name="name" autofocus><br>
-    Description:<br><textarea cols="50" rows="4" name="descr"></textarea><br>
-    Click on proposed dates:
-    <div class="dates-input">JavaScript needed.</div>
-    <button class="btn" type="submit">Create poll &raquo;</button>
+    Event name:<br><input class="form-input" type="text" name="name" autofocus><br>
+    Description:<br><textarea class="form-input" cols="50" rows="4" name="descr"></textarea><br>
+    Select proposed dates:
+    <div class="dates-input form-input">JavaScript needed.</div>
+    <button class="btn-big form-input" type="submit">Create poll &raquo;</button>
 </form>
