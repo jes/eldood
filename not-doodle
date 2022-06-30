@@ -40,6 +40,11 @@ helper poll_url => sub {
     return $ROOT . $poll->{token};
 };
 
+helper is_valid_csrftoken => sub {
+    my ($c) = @_;
+    return $c->session('csrf_token') eq $c->param('csrf_token');
+};
+
 get '/' => sub {
     my ($c) = @_;
     return $c->render('index');
@@ -58,6 +63,7 @@ get '/:token' => sub {
 # dates: "20220630,20220701,20220704,20220819"
 post '/new' => sub {
     my ($c) = @_;
+    return $c->redirect_to('/') if !$c->is_valid_csrftoken;
     my $poll = NotDoodle->new(
         name => scalar $c->param('name'),
         descr => scalar $c->param('descr'),
@@ -71,6 +77,7 @@ post '/new' => sub {
 # dates: "20220701,20220819"
 post '/respond' => sub {
     my ($c) = @_;
+    return $c->redirect_to('/') if !$c->is_valid_csrftoken;
     my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->respond(
@@ -84,6 +91,7 @@ post '/respond' => sub {
 # respo: "b653ead819"
 post '/scrub' => sub {
     my ($c) = @_;
+    return $c->redirect_to('/') if !$c->is_valid_csrftoken;
     my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->scrub(scalar $c->param('respo'));
@@ -96,6 +104,7 @@ post '/scrub' => sub {
 # dates: "20220701,20220819"
 post '/update' => sub {
     my ($c) = @_;
+    return $c->redirect_to('/') if !$c->is_valid_csrftoken;
     my $poll = NotDoodle->get(scalar $c->param('token'));
     return $c->redirect_to('/') if !$poll;
     $poll->update(
