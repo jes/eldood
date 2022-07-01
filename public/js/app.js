@@ -235,4 +235,8 @@ function makeDateSelectors(inputField, submitButton) {
     });
 }
 
+function selectAllDates() {
+    document.querySelectorAll('.date-select').forEach(el => el.click());
+}
+
 makeDatesInputs();

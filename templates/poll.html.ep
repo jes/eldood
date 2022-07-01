@@ -90,5 +90,8 @@
 <script>
 window.onload = function() {
     makeDateSelectors(document.querySelector('input[name="dates"]'), document.querySelector('#respond-button'));
+% if (scalar($poll->responses) == 0) {
+    selectAllDates();
+% }
 };
 </script>
