@@ -3,6 +3,7 @@
 <head>
 <title><%= stash('title') ? (stash('title')." - Eldood") : "Eldood" %></title>
 <link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="icon" type="image/png" href="/img/favicon.png">
 </head>
 <body>
 <div class="container">
