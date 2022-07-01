@@ -1,29 +1,32 @@
 :root {
     --bg: white;
-    --fg: black;
-    --fgsubtle: #888;
-    --selected: lightgreen;
-    --hover-selected: limegreen;
-    --hover-unselected: lightgrey;
+    --fg: #010;
+    --fgsubtle: #676;
+    --selected: #9e9;
+    --hover-selected: #bfb;
+    --hover-unselected: #ddd;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: black;
-        --fg: white;
-        --fgsubtle: #888;
-        --selected: limegreen;
-        --hover-selected: lightgreen;
-        --hover-unselected: grey;
+        --bg: #222;
+        --fg: #ded;
+        --fgsubtle: #898;
+        --selected: #282;
+        --hover-selected: #2a2;
+        --hover-unselected: #666;
     }
 }
 
 html, body {
     width: 100%;
+    height: 100%;
     font-family: monospace;
     font-size: 1.2em;
     color: var(--fg);
     background-color: var(--bg);
+    margin: 0;
+    padding: 0;
 }
 
 .date-input {
@@ -141,12 +144,36 @@ a:hover, a:focus, a:active {
     flex-direction: row;
     display: flex;
 }
-
 .leftpad, .rightpad {
     flex-grow: 1;
 }
 .main-content {
     flex-grow: 0;
+}
+
+.vcontainer {
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    flex-grow: 0;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+.toppad {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+}
+.bottompad {
+    flex-grow: 3;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    flex-grow: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .withborder {
