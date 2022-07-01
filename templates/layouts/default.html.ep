@@ -13,10 +13,12 @@
 <div class="leftpad"></div>
 
 <div class="maincontent">
+<h1>Eldood</h1>
 %= content
 
 <hr>
-<small class="subtle">Eldood is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small>
+<small class="subtle">Eldood is made by <a href="https://incoherency.co.uk/">James Stanley</a>.</small><br>
+<small class="subtle">Open source on <a href="https://github.com/jes/eldood/">github</a>.</small>
 </div>
 
 <div class="rightpad"></div>
