@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use DBI;
+use Encode qw(decode_utf8);
 
 use Eldood::Config;
 
@@ -35,7 +36,10 @@ sub get {
         WHERE token = ?
     }, {}, $token);
     return undef if !$row;
-    return bless $row, $pkg;
+    my $self = bless $row, $pkg;
+    $self->{name} = decode_utf8($self->{name});
+    $self->{descr} = decode_utf8($self->{descr});
+    return $self;
 }
 
 # name: "My Eldood poll"
@@ -92,6 +96,9 @@ sub responses {
         SELECT * FROM responses
         WHERE token = ?
     }, {Slice => {}}, $self->{token}) };
+    for my $r (@rows) {
+        $r->{name} = decode_utf8($r->{name});
+    }
     return @rows;
 }
 
