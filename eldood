@@ -13,8 +13,6 @@ use lib "$FindBin::Bin/lib/";
 use Eldood;
 use Eldood::Config;
 
-my $ROOT = "https://eldood.uk/";
-
 helper encode_json => sub {
     my ($c,$o) = @_;
     return encode_json($o);
@@ -38,7 +36,7 @@ helper weekday => sub {
 
 helper poll_url => sub {
     my ($c,$poll) = @_;
-    return $ROOT . $poll->{token};
+    return Eldood::Config->get('root') . $poll->{token};
 };
 
 helper is_valid_csrftoken => sub {
