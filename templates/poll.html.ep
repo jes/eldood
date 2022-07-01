@@ -71,7 +71,7 @@
     <input type="hidden" name="respo" value="<%= $r->{respo} %>">
 % my $safename = $r->{name};
 % $safename =~ s/[^a-zA-Z0-9-_ ]//g;
-    <button type="submit" onclick="return confirm('Really delete "<%= $safename %>"?')">delete</button>
+    <button type="submit" onclick="return confirm('Really delete &quot;<%= $safename %>&quot;?')">delete</button>
     </form>
 
 </td>
