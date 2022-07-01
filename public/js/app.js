@@ -208,21 +208,31 @@ function makeDatesInputs() {
 
 function makeDateSelectors(inputField, submitButton) {
     let dateSelected = {};
+    let DEFINITELY = 1;
+    let IFNEEDBE = 2;
     document.querySelectorAll('.date-select').forEach(td => {
         td.onclick = function() {
-            if (dateSelected[td.dataset.date]) {
+            if (!dateSelected[td.dataset.date]) {
+                dateSelected[td.dataset.date] = DEFINITELY;
+                td.classList.add('date-selected');
+                td.classList.remove('date-unselected');
+                td.classList.remove('date-ifneedbe');
+            } else if (dateSelected[td.dataset.date] == DEFINITELY) {
+                dateSelected[td.dataset.date] = IFNEEDBE;
+                td.classList.add('date-ifneedbe');
+                td.classList.remove('date-unselected');
+                td.classList.remove('date-selected');
+            } else {
                 delete dateSelected[td.dataset.date];
                 td.classList.add('date-unselected');
                 td.classList.remove('date-selected');
-            } else {
-                dateSelected[td.dataset.date] = true;
-                td.classList.add('date-selected');
-                td.classList.remove('date-unselected');
-            }
+                td.classList.remove('date-ifneedbe');
+            };
 
             let dates = [];
             for (let date in dateSelected) {
-                if (dateSelected[date]) dates.push(date);
+                if (dateSelected[date] == DEFINITELY) dates.push(date)
+                else if (dateSelected[date] == IFNEEDBE) dates.push("(" + date + ")");
             }
             inputField.value = dates.sort().join(',');
 

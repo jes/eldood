@@ -3,8 +3,10 @@
     --fg: #010;
     --fgsubtle: #676;
     --selected: #9e9;
+    --ifneedbe: #ec9;
     --hover-selected: #bfb;
     --hover-unselected: #ddd;
+    --hover-ifneedbe: #fdb;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,8 +15,10 @@
         --fg: #ded;
         --fgsubtle: #898;
         --selected: #282;
+        --ifneedbe: #852;
         --hover-selected: #2a2;
         --hover-unselected: #666;
+        --hover-ifneedbe: #a62;
     }
 }
 
@@ -42,7 +46,10 @@ html, body {
     text-align: center;
 }
 .date-selected {
-    background: var(--selected);;
+    background: var(--selected);
+}
+.date-ifneedbe {
+    background: var(--ifneedbe);
 }
 .date-unselected {
 }
@@ -51,6 +58,9 @@ html, body {
 }
 .date-input.date-unselected:hover, .date-select.date-unselected:hover {
     background: var(--hover-unselected);
+}
+.date-input.date-ifneedbe:hover, .date-select.date-ifneedbe:hover {
+    background: var(--hover-ifneedbe);
 }
 
 .date-table, .date-table td, .date-table th, .date-table tr {
@@ -129,6 +139,9 @@ a:hover, a:focus, a:active {
 .ticked-date {
     font-size: 2rem;
 }
+.date-ifneedbe .ticked-date {
+    font-size: 1.2rem;
+}
 
 .name-input {
     padding-left: 3px;
@@ -179,4 +192,8 @@ a:hover, a:focus, a:active {
 .withborder {
     border: solid 1px var(--fgsubtle);
     padding: 4px;
+}
+
+small {
+    font-size: 0.8rem;
 }

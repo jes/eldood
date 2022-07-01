@@ -36,6 +36,7 @@
 
 </tr>
 % my %datecount;
+% my %maybecount;
 % for my $r ($poll->responses) {
 %   my %hasdate = map { $_ => 1 } split /,/, $r->{dates};
     <tr>
@@ -51,6 +52,12 @@
 
             <td class="date-selected">
                 <span class="ticked-date">&#10003;</span>
+            </td>
+%           } elsif ($hasdate{"($d)"}) {
+%               $maybecount{$d}++;
+
+            <td class="date-ifneedbe">
+                <span class="ticked-date">(&#10003;)</span>
             </td>
 %           } else {
             <td class="date-unselected"></td>
@@ -77,6 +84,7 @@
 % for my $d (@dates) {
     <td style="height:initial">
     <%= $datecount{$d}||'' %>
+    <small><%= $maybecount{$d} ? "(+$maybecount{$d})" : "" %></small>
     </td>
 % }
 </td>
