@@ -15,7 +15,7 @@
 %= csrf_field
 <tr>
 <th class="name-input">
-<input type="text" name="name" placeholder="Your name" autofocus>
+<input type="text" name="name" placeholder="Your name" autofocus required>
 <input type="hidden" name="token" value="<%= $poll->{token} %>">
 <input type="hidden" name="dates" value="">
 </th>
