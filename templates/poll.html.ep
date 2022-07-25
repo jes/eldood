@@ -30,7 +30,7 @@
 % }
 
 <th>
-<button id="respond-button" class="btn-big" type="submit" disabled>submit</button>
+<button id="respond-button" class="btn-big" type="submit">submit</button>
 </th>
 </form>
 

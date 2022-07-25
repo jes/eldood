@@ -235,12 +235,6 @@ function makeDateSelectors(inputField, submitButton) {
                 else if (dateSelected[date] == IFNEEDBE) dates.push("(" + date + ")");
             }
             inputField.value = dates.sort().join(',');
-
-            if (dates.length > 0) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
-            }
         };
     });
 }
