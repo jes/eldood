@@ -157,9 +157,7 @@ function makeDatesInput(container) {
         table.classList.add('date-table');
         table.appendChild(htmlToElem("<tr><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th></tr>"));
         let row = document.createElement('tr');
-        console.log("weekday = dayOfWeek(" + datesInput.year + "," + datesInput.month + "," + 1);
         let weekday = dayOfWeek(datesInput.year, datesInput.month, 1);
-        console.log(" = " + weekday);
         if (weekday == 0) weekday = 7;
         if (weekday > 1) {
             let td = document.createElement('td');
