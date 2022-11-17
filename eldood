@@ -57,6 +57,34 @@ get '/:token' => sub {
     return $c->render('poll');
 };
 
+get '/:token/json' => sub {
+    my ($c) = @_;
+    my $poll = Eldood->get($c->param('token'))
+        or return $c->render(json => {
+            status => 'error',
+            error => 'no such poll',
+        });
+    my @responses;
+    for my $r ($poll->responses) {
+        my @all_dates = split /,/, $r->{dates};
+        my @ok_dates = grep { !/\(/ } @all_dates;
+        my @ifneedbe_dates = map { my $x=$_; $x =~ s/[()]//g; $x } grep { /\(/ } @all_dates;
+        push @responses, {
+            name => $r->{name},
+            ok_dates => \@ok_dates,
+            ifneedbe_dates => \@ifneedbe_dates,
+        };
+    }
+    return $c->render(json => {
+        status => 'ok',
+        name => $poll->{name},
+        descr => $poll->{descr},
+        token => $poll->{token},
+        dates => [split /,/, $poll->{dates}],
+        responses => \@responses,
+    });
+};
+
 # name: "My Eldood poll"
 # descr: "This is an example poll"
 # dates: "20220630,20220701,20220704,20220819"

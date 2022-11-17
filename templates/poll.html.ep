@@ -4,7 +4,9 @@
 <h2><%= $poll->{name} %></h2>
 <p><%= $poll->{descr} %></p>
 
-<p><small>Share this URL: <span style=" white-space:nowrap" class="withborder"><%= poll_url($poll) %></span> <button onclick="copyToClipboard('<%= poll_url($poll) %>')">copy</button></small></p>
+<p>
+<small>Share this URL: <span style=" white-space:nowrap" class="withborder"><%= poll_url($poll) %></span> <button onclick="copyToClipboard('<%= poll_url($poll) %>')">copy</button></small><br>
+</p>
 
 <p>Enter your name and select the dates you can make.</p>
 
@@ -92,6 +94,8 @@
 
 </table>
 <br>
+
+<p><small>JSON data: <span style=" white-space:nowrap" class="withborder"><%= poll_url($poll) %>/json</span></small><br></p>
 
 <p><a href="/">Make your own Eldood poll</a></p><br>
 
