@@ -53,13 +53,13 @@ html, body {
 }
 .date-unselected {
 }
-.date-input.date-selected:hover, .date-select.date-selected:hover {
+.date-selected:hover {
     background: var(--hover-selected);
 }
-.date-input.date-unselected:hover, .date-select.date-unselected:hover {
+.date-unselected:hover {
     background: var(--hover-unselected);
 }
-.date-input.date-ifneedbe:hover, .date-select.date-ifneedbe:hover {
+.date-ifneedbe:hover {
     background: var(--hover-ifneedbe);
 }
 
@@ -196,4 +196,12 @@ a:hover, a:focus, a:active {
 
 small {
     font-size: 0.8rem;
+}
+
+.key {
+    padding-bottom: 20px;
+    font-size: 0.8rem;
+}
+.key span {
+    border: solid 1px var(--fgsubtle);
 }
