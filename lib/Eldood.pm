@@ -53,7 +53,6 @@ sub new {
         (token, name, descr, dates)
         VALUES (?, ?, ?, ?)
     }, {}, $token, $args{name}, $args{descr}, $args{dates});
-    print "new:token=$token\n";
     return $pkg->get($token);
 }
 
