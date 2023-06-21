@@ -22,6 +22,15 @@
     }
 }
 
+/* disable hover effects on browsers that can't hover (e.g. phones) */
+@media (hover: none) {
+    :root {
+        --hover-selected: var(--selected);
+        --hover-unselected: var(--bg);
+        --hover-ifneedbe: var(--ifneedbe);
+    }
+}
+
 html, body {
     width: 100%;
     height: 100%;
